@@ -8,30 +8,45 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController {
-
+class TweetsViewController: UIViewController, UITableViewDelegate {
+    
     var tweets: [Tweet]!
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("MDT I GOT HERE 1")
+        initializeUI()
         
         TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             
-            for tweet in tweets {
-                print(tweet.text!)
-            }
-            print("MDT I GOT HERE 2")
-            // call tableView.reloadData()
+            //            for tweet in tweets {
+            //                print(tweet.text!)
+            //            }
+            self.tableView.reloadData()
         }, failure: { (error: Error) -> () in
-            print("MDT I GOT HERE 3")
-            dump(error)
-            NSLog("Error: \(error.localizedDescription)", [])
             print("Error: \(error.localizedDescription)")
-            print("MDT I GOT HERE 4")
         })
+        
+    }
+    
+    func initializeUI() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        // Used for estimating scroll bar height
+        tableView.estimatedRowHeight = 120
+        
+        navigationController?.navigationBar.barTintColor = UIColor.blue // MDT figure out how to extract RGB or Hex for this
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.isTranslucent = false
+        
+        let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : Any]
+        
+        // MDT TODO Set up infinit scrolling loading indicator below
         
     }
     
@@ -51,3 +66,28 @@ class TweetsViewController: UIViewController {
      */
     
 }
+
+extension TweetsViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.tweets?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetsCell
+        cell.tweet = tweets[indexPath.row]
+        
+        return cell
+    }
+}
+
+
+//extension TweetsViewController: UITableViewDelegate {
+//
+//}
+
+
+
+
+
+

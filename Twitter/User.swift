@@ -17,7 +17,7 @@ class User: NSObject {
     
     var dictionary: NSDictionary?
     
-    static let userDidLogoutNotification = "UserDidLogout"
+    public static let userDidLogoutNotification = "UserDidLogout"
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
@@ -32,8 +32,7 @@ class User: NSObject {
         tagline = dictionary["description"] as? String
     }
     
-    // MDT make private
-    static var _currentUser: User?
+    private static var _currentUser: User?
     
     class var currentUser: User? {
         get {

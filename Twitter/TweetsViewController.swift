@@ -15,15 +15,22 @@ class TweetsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("MDT I GOT HERE 1")
+        
         TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             
             for tweet in tweets {
                 print(tweet.text!)
             }
+            print("MDT I GOT HERE 2")
             // call tableView.reloadData()
         }, failure: { (error: Error) -> () in
-            print(error.localizedDescription)
+            print("MDT I GOT HERE 3")
+            dump(error)
+            NSLog("Error: \(error.localizedDescription)", [])
+            print("Error: \(error.localizedDescription)")
+            print("MDT I GOT HERE 4")
         })
         
     }

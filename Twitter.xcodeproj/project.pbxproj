@@ -33,6 +33,7 @@
 		4E477E421DC43DC100CB72B6 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		4E477E441DC44EA100CB72B6 /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		4E477E481DC464F000CB72B6 /* TweetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsViewController.swift; sourceTree = "<group>"; };
+		4E477E4A1DC592DC00CB72B6 /* Twitter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Twitter.entitlements; sourceTree = "<group>"; };
 		D380DF47459CA3D32AC4F6EE /* Pods-Twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +70,7 @@
 		4E477E281DC3FBFD00CB72B6 /* Twitter */ = {
 			isa = PBXGroup;
 			children = (
+				4E477E4A1DC592DC00CB72B6 /* Twitter.entitlements */,
 				4E477E3F1DC43D7000CB72B6 /* API */,
 				4E477E3E1DC43D6200CB72B6 /* View Controllers */,
 				4E477E3D1DC43D5C00CB72B6 /* Models */,
@@ -159,7 +161,13 @@
 				TargetAttributes = {
 					4E477E251DC3FBFC00CB72B6 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 5KFSELFFRN;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -376,6 +384,8 @@
 			baseConfigurationReference = D380DF47459CA3D32AC4F6EE /* Pods-Twitter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Twitter/Twitter.entitlements;
+				DEVELOPMENT_TEAM = 5KFSELFFRN;
 				INFOPLIST_FILE = Twitter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.miketehranian.Twitter;
@@ -389,6 +399,8 @@
 			baseConfigurationReference = 42EBFE1EEC981C6313E4B7E0 /* Pods-Twitter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Twitter/Twitter.entitlements;
+				DEVELOPMENT_TEAM = 5KFSELFFRN;
 				INFOPLIST_FILE = Twitter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.miketehranian.Twitter;

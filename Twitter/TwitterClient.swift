@@ -21,10 +21,10 @@ class TwitterClient: BDBOAuth1SessionManager {
         loginFailure = failure
         
         deauthorize()
-        fetchRequestToken(withPath: "oauth/request_token", method: "GET", callbackURL: URL(string:"twitterdemo://oauth")!, scope: nil, success: { (requestToken: BDBOAuth1Credential?) in
-            let url = URL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken!.token!)")!
-            UIApplication.shared.open(url)
-            
+        fetchRequestToken(withPath: "oauth/request_token", method: "GET", callbackURL: URL(string:"twitterdemo://oauth")!, scope: nil,
+                          success: { (requestToken: BDBOAuth1Credential?) in
+                            let url = URL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken!.token!)")!
+                            UIApplication.shared.open(url)
         }, failure: { (error: Error?) in
             print("Error: \(error?.localizedDescription)) ")
             self.loginFailure?(error!)

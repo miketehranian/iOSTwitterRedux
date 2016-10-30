@@ -14,22 +14,13 @@ class TweetsViewController: UIViewController, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var refreshControl: UIRefreshControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initializeUI()
-        
-        TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
-            self.tweets = tweets
-            
-            //            for tweet in tweets {
-            //                print(tweet.text!)
-            //            }
-            self.tableView.reloadData()
-        }, failure: { (error: Error) -> () in
-            print("Error: \(error.localizedDescription)")
-        })
-        
+        loadTweetTimeline()
     }
     
     func initializeUI() {
@@ -46,8 +37,14 @@ class TweetsViewController: UIViewController, UITableViewDelegate {
         let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : Any]
         
-        // MDT TODO Set up infinit scrolling loading indicator below
+        // Attach the refresh control to the table view
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(loadTweetTimeline), for: UIControlEvents.valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
         
+        
+        // MDT TODO Set up infinit scrolling loading indicator below
+
     }
     
     @IBAction func onLogoutButton(_ sender: Any) {
@@ -55,15 +52,16 @@ class TweetsViewController: UIViewController, UITableViewDelegate {
         TwitterClient.sharedInstance.logout()
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    func loadTweetTimeline() {
+        TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
+            self.tweets = tweets
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+        }, failure: { (error: Error) -> () in
+            print("Error: \(error.localizedDescription)")
+            self.refreshControl.endRefreshing()
+        })
+    }
     
 }
 

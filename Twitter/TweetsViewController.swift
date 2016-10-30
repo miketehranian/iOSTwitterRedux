@@ -28,6 +28,10 @@ class TweetsViewController: UIViewController {
         
     }
     
+    @IBAction func onLogoutButton(_ sender: Any) {
+        // Do an animation from this view to get back to the previous screen
+        TwitterClient.sharedInstance.logout()
+    }
     
     /*
      // MARK: - Navigation

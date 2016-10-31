@@ -23,16 +23,17 @@ class TweetsCell: UITableViewCell {
 //            if let profileImageUrl = tweet.profileImageUrl {
 //                self.profileImageView.setImageWith(profileImageUrl)
 //            }
-            profileImageView.setImageWith(tweet.profileImageUrl!)
-            nameLabel.text = tweet.realName
-            screennameLabel.text = "@\(tweet.screenName!)"
-            tweetTextLabel.text = tweet.text
+            profileImageView.setImageWith((tweet?.user.profileUrl)!)
+            nameLabel.text = tweet?.user.name
+            screennameLabel.text = "@\((tweet?.user.screenname!)!)"
+            tweetTextLabel.text = tweet?.text
             
             // MDT need to fix the formatting here
             //            if let timestamp = tweet.timestamp {
             //                timestampLabel.text = "\(timestamp)"
             //            }
 
+            // timestampLabel.text = tweet?.timestamp.timeAgo()
             // MDT hard coding for now
             timestampLabel.text = "4h"
         }
@@ -41,8 +42,8 @@ class TweetsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        profileImageView.layer.cornerRadius = 3
-//        profileImageView.clipsToBounds = true
+        profileImageView.layer.cornerRadius = 3
+        profileImageView.clipsToBounds = true
         
         nameLabel.preferredMaxLayoutWidth = nameLabel.frame.size.width
     }
@@ -54,6 +55,7 @@ class TweetsCell: UITableViewCell {
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
+        // MDT should I comment out below?
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state

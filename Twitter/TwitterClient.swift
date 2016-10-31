@@ -80,5 +80,17 @@ class TwitterClient: BDBOAuth1SessionManager {
             failure(error)
         })
     }
+
+    func composeNewTweet(params: NSDictionary?, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let status = Tweet(dictionary: response as! NSDictionary)
+            success(status)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("Error: \(error.localizedDescription)")
+            failure(error)
+        })
+
+        
+    }
     
 }

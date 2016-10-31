@@ -19,6 +19,15 @@ class TweetsViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: Tweet.ComponseNewTweet), object: nil,
+                                               queue: OperationQueue.main,
+                                               using: { (notification: Notification) -> Void in
+                                                let tweet = notification.object as! Tweet
+                                                self.tweets?.insert(tweet, at: 0)
+                                                self.tableView.reloadData()
+        })
+        
+        
         initializeUI()
         loadTweetTimeline()
     }
@@ -43,16 +52,39 @@ class TweetsViewController: UIViewController, UITableViewDelegate {
         tableView.insertSubview(refreshControl, at: 0)
         
         
-        // MDT TODO Set up infinit scrolling loading indicator below
-
+        // MDT TODO Set up infinite scrolling loading indicator below
+        
     }
     
     @IBAction func onLogoutButton(_ sender: Any) {
-        // Do an animation from this view to get back to the previous screen
+        // MDT Can do an animation from this view to get back to the previous screen
         TwitterClient.sharedInstance.logout()
     }
     
+    //MDT probably don't need something like this again, but may be useful
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        let navigationController = segue.destination as! UINavigationController
+    //
+    //        switch navigationController.topViewController {
+    //        case is ComposeTweetViewController:
+    //            let composeTweetViewController = navigationController.topViewController as! ComposeTweetViewController
+    //            filtersViewController.delegate = self
+    //            filtersViewController.categoriesSwitchStates = categoryStates
+    //            filtersViewController.distancesSwitchStates = distancesStates
+    //            filtersViewController.sortBySwitchStates = sortByStates
+    //            filtersViewController.hasDealsState = hasDealState
+    //        case is MapViewController:
+    //            let mapViewController = navigationController.topViewController as! MapViewController
+    //            mapViewController.businesses = businesses
+    //        default:
+    //            break
+    //        }
+    //    }
+    
     func loadTweetTimeline() {
+        // MDT maybe include this
+        // MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        
         TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tableView.reloadData()
@@ -61,6 +93,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate {
             print("Error: \(error.localizedDescription)")
             self.refreshControl.endRefreshing()
         })
+        // MDT maybe include and this
+        // MBProgressHUD.hideHUDForView(self.view, animated: true)
+        
     }
     
 }

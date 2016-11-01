@@ -50,15 +50,13 @@ class User: NSObject {
         }
         set {
             _currentUser = newValue
-        
+            
             let defaults = UserDefaults.standard
-        
+            
             if let user = newValue {
                 let data = try! JSONSerialization.data(withJSONObject: user.dictionary!, options: [])
                 defaults.set(data, forKey: "currentUserData")
             } else {
-                // MDT changed this
-                // defaults.set(nil, forKey: "currentUserData")
                 defaults.removeObject(forKey: "currentUserData")
             }
             

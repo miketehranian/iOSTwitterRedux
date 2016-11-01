@@ -14,56 +14,48 @@ class Tweet: NSObject {
     var timestamp: Date?
     var retweetCount: Int = 0
     var favoritesCount: Int = 0
+    var id: Int?
     
-    //    var screenName: String!
-    //    var realName: String?
-    //    var profileImageUrl: URL?
-    //    var retweetedByName: String?
+    var user: User!
     
-    var user: User
+    var favorited: Bool?
+    var retweeted: Bool?
     
-    public static let ComponseNewTweet = "ComposeNewTweet"
+    public static let ComposeNewTweet = "ComposeNewTweet"
     public static let maxTweetCharacters = 140
     
     init(dictionary: NSDictionary) {
-        text = dictionary["text"] as? String
-        retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
-        favoritesCount = (dictionary["favourites_count"] as? Int) ?? 0
+        super.init()
+        initFrom(dictionary: dictionary)
+    }
+    
+    func initFrom(dictionary: NSDictionary) {
+        var realDictionary: NSDictionary = dictionary
         
-        let timestampString = dictionary["created_at"] as? String
+        favorited = realDictionary.value(forKey: "favorited") as? Bool ?? false
+        retweeted = realDictionary.value(forKey:"retweeted") as? Bool ?? false
+        
+        user = User(dictionary: realDictionary["user"] as! NSDictionary)
+        id = (realDictionary["id"] as? Int) ?? 0
+        
+        if realDictionary["retweeted_status"] != nil {
+            realDictionary = dictionary["retweeted_status"] as! NSDictionary
+        } else {
+            realDictionary = dictionary
+        }
+        
+        text = realDictionary["text"] as? String
+        
+        retweetCount = (realDictionary["retweet_count"] as? Int) ?? 0
+        favoritesCount = (realDictionary["favorite_count"] as? Int) ?? 0
+        
+        let timestampString = realDictionary["created_at"] as? String
         
         if let timestampString = timestampString {
             let formatter = DateFormatter()
             formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
             timestamp = formatter.date(from: timestampString)
-            // print("Time stamp string: \(timestampString)")
         }
-        
-        user = User(dictionary: dictionary["user"] as! NSDictionary)
-        // MDT add these later
-//        numberOfRetweets = dictionary["retweet_count"] as Int
-//        numberOfFavorites = dictionary["favorite_count"] as Int
-        
-        // MDT remove below
-        //        if let userDictionary = dictionary["user"] as? Dictionary<String, Any> { // MDT try ANYObject here
-        //            if let screenNameString = userDictionary["screen_name"] as? String {
-        //                print("Screen Name: \(screenNameString)")
-        //                screenName = screenNameString
-        //            }
-        //            if let realNameString = userDictionary["name"] as? String {
-        //                print("Real Name: \(realNameString)")
-        //                self.realName = realNameString
-        //
-        //            }
-        //            if let profileImageUrlString = userDictionary["profile_image_url_https"] as? String {
-        //                if let realUrl = URL(string: profileImageUrlString) {
-        //                    print("Image URL: \(realUrl)")
-        //                    self.profileImageUrl = realUrl
-        //                }
-        //            }
-        //    }
-        
-        
     }
     
     class func tweetsWithArray(dictionaries: [NSDictionary]) -> [Tweet] {
@@ -75,6 +67,4 @@ class Tweet: NSObject {
         }
         return tweets
     }
-    
-    
 }

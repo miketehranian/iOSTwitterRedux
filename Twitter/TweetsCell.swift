@@ -16,26 +16,17 @@ class TweetsCell: UITableViewCell {
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
     
-    // MDT TODO add label for favorite and retweet counts
+    weak var composer: ComposeTweetDelegate?
     
     var tweet: Tweet! {
         didSet {
-//            if let profileImageUrl = tweet.profileImageUrl {
-//                self.profileImageView.setImageWith(profileImageUrl)
-//            }
             profileImageView.setImageWith((tweet?.user.profileUrl)!)
             nameLabel.text = tweet?.user.name
             screennameLabel.text = "@\((tweet?.user.screenname!)!)"
             tweetTextLabel.text = tweet?.text
             
-            // MDT need to fix the formatting here
-            //            if let timestamp = tweet.timestamp {
-            //                timestampLabel.text = "\(timestamp)"
-            //            }
-
-            // timestampLabel.text = tweet?.timestamp.timeAgo()
-            // MDT hard coding for now
-            timestampLabel.text = "4h"
+            let dateFormatter = DateFormatter()
+            timestampLabel.text = dateFormatter.timeSince(from: tweet.timestamp!, numericDates: true)
         }
     }
     
@@ -55,9 +46,84 @@ class TweetsCell: UITableViewCell {
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
-        // MDT should I comment out below?
         super.setSelected(selected, animated: animated)
+    }
+}
+
+// Found here:
+// https://samoylov.tech/2016/09/19/implementing-time-since-function-in-swift-3/
+extension DateFormatter {
+    /**
+     Formats a date as the time since that date (e.g., “Last week, yesterday, etc.”).
+     
+     - Parameter from: The date to process.
+     - Parameter numericDates: Determines if we should return a numeric variant, e.g. "1 month ago" vs. "Last month".
+     
+     - Returns: A string with formatted `date`.
+     */
+    func timeSince(from: Date, numericDates: Bool = false) -> String {
+        let calendar = Calendar.current
+        let now = Date()
+        let earliest = from //(now > from ? from : now)
+        let latest = now //earliest == now as Date ? from : now
+        let components = calendar.dateComponents([.year, .weekOfYear, .month, .day, .hour, .minute, .second], from: earliest, to: latest)
         
-        // Configure the view for the selected state
+        var result = ""
+        
+        if components.year! >= 2 {
+            result = "\(components.year!)y"
+        } else if components.year! >= 1 {
+            if numericDates {
+                result = "1y"
+            } else {
+                result = "Last year"
+            }
+        } else if components.month! >= 2 {
+            result = "\(components.month!)m"
+        } else if components.month! >= 1 {
+            if numericDates {
+                result = "1m"
+            } else {
+                result = "Last month"
+            }
+        } else if components.weekOfYear! >= 2 {
+            result = "\(components.weekOfYear!)w"
+        } else if components.weekOfYear! >= 1 {
+            if numericDates {
+                result = "1w"
+            } else {
+                result = "Last week"
+            }
+        } else if components.day! >= 2 {
+            result = "\(components.day!)d"
+        } else if components.day! >= 1 {
+            if numericDates {
+                result = "1d"
+            } else {
+                result = "Yesterday"
+            }
+        } else if components.hour! >= 2 {
+            result = "\(components.hour!)d"
+        } else if components.hour! >= 1 {
+            if numericDates {
+                result = "1h"
+            } else {
+                result = "An hour ago"
+            }
+        } else if components.minute! >= 2 {
+            result = "\(components.minute!)m"
+        } else if components.minute! >= 1 {
+            if numericDates {
+                result = "1m"
+            } else {
+                result = "A minute ago"
+            }
+        } else if components.second! >= 3 {
+            result = "\(components.second!)s"
+        } else {
+            result = "Just now"
+        }
+        
+        return result
     }
 }

@@ -80,7 +80,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             failure(error)
         })
     }
-
+    
     func composeNewTweet(params: NSDictionary?, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
         post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let status = Tweet(dictionary: response as! NSDictionary)
@@ -89,8 +89,35 @@ class TwitterClient: BDBOAuth1SessionManager {
             print("Error: \(error.localizedDescription)")
             failure(error)
         })
-
-        
+    }
+    
+    func retweet(unRetweet: Bool = false, params: NSDictionary, success: @escaping (NSDictionary) -> (), failure: @escaping (Error) -> ()) {
+        let url = (unRetweet ? "1.1/statuses/unretweet/" : "1.1/statuses/retweet/")+"\(params["id"]!).json"
+        post(url,parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success(response as! NSDictionary)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+    }
+    
+    func unretweet(params: NSDictionary, success: @escaping (NSDictionary) -> (), failure: @escaping (Error) -> ()) {
+        let getTweetUrl = "1.1/statuses/show/\(params["id"]!).json?include_my_retweet=1"
+        get(getTweetUrl, parameters: nil, progress: nil, success: {
+            (task: URLSessionDataTask, response: Any?) -> Void in
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("Error: \(error.localizedDescription)")
+            failure(error)
+        })
+    }
+    
+    func favoriteTweet(destroy: Bool = false, params: NSDictionary, success: @escaping (NSDictionary) -> (), failure: @escaping (Error) -> ()) {
+        let url = (destroy ? "1.1/favorites/destroy.json" : "1.1/favorites/create.json")
+        post(url, parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success(response as! NSDictionary)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            print("Error: \(error.localizedDescription)")
+            failure(error)
+        }
     }
     
 }

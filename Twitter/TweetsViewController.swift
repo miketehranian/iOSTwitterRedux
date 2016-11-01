@@ -19,7 +19,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: Tweet.ComponseNewTweet), object: nil,
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: Tweet.ComposeNewTweet), object: nil,
                                                queue: OperationQueue.main,
                                                using: { (notification: Notification) -> Void in
                                                 let tweet = notification.object as! Tweet
@@ -39,7 +39,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate {
         // Used for estimating scroll bar height
         tableView.estimatedRowHeight = 120
         
-        navigationController?.navigationBar.barTintColor = UIColor.blue // MDT figure out how to extract RGB or Hex for this
+        navigationController?.navigationBar.barTintColor = UIColor(netHex: 0x00B8ED)
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.isTranslucent = false
         
@@ -50,41 +50,17 @@ class TweetsViewController: UIViewController, UITableViewDelegate {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(loadTweetTimeline), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
-        
-        
-        // MDT TODO Set up infinite scrolling loading indicator below
-        
     }
     
     @IBAction func onLogoutButton(_ sender: Any) {
-        // MDT Can do an animation from this view to get back to the previous screen
         TwitterClient.sharedInstance.logout()
     }
     
-    //MDT probably don't need something like this again, but may be useful
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        let navigationController = segue.destination as! UINavigationController
-    //
-    //        switch navigationController.topViewController {
-    //        case is ComposeTweetViewController:
-    //            let composeTweetViewController = navigationController.topViewController as! ComposeTweetViewController
-    //            filtersViewController.delegate = self
-    //            filtersViewController.categoriesSwitchStates = categoryStates
-    //            filtersViewController.distancesSwitchStates = distancesStates
-    //            filtersViewController.sortBySwitchStates = sortByStates
-    //            filtersViewController.hasDealsState = hasDealState
-    //        case is MapViewController:
-    //            let mapViewController = navigationController.topViewController as! MapViewController
-    //            mapViewController.businesses = businesses
-    //        default:
-    //            break
-    //        }
-    //    }
+    @IBAction func onComposeButton(_ sender: Any) {
+        composeTweetFor(tweet: nil)
+    }
     
     func loadTweetTimeline() {
-        // MDT maybe include this
-        // MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        
         TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tableView.reloadData()
@@ -93,34 +69,43 @@ class TweetsViewController: UIViewController, UITableViewDelegate {
             print("Error: \(error.localizedDescription)")
             self.refreshControl.endRefreshing()
         })
-        // MDT maybe include and this
-        // MBProgressHUD.hideHUDForView(self.view, animated: true)
-        
     }
-    
 }
 
 extension TweetsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tweets?.count ?? 0
+        return tweets?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetsCell
         cell.tweet = tweets[indexPath.row]
-        
+        cell.composer = self
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "TweetDetailViewController") as! TweetDetailViewController
+        controller.tweet = tweets[indexPath.row]
+        controller.composer = self
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
 }
 
-
-//extension TweetsViewController: UITableViewDelegate {
-//
-//}
-
-
-
-
-
+extension TweetsViewController: ComposeTweetDelegate {
+    func composeTweetFor(tweet: Tweet?) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "ComposeTweetViewController") as! ComposeTweetViewController
+        if let sourceTweet = tweet {
+            controller.replyTweet = sourceTweet
+        } else {
+            controller.replyTweet = nil
+        }
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+}
 

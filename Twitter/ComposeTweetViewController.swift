@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ComposeTweetDelegate: class {
+    func composeTweetFor(tweet: Tweet?)
+}
+
 class ComposeTweetViewController: UIViewController {
     
     
@@ -16,6 +20,8 @@ class ComposeTweetViewController: UIViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screennameLabel: UILabel!
+    
+    var replyTweet: Tweet?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,22 +34,10 @@ class ComposeTweetViewController: UIViewController {
         self.nameLabel.text = User.currentUser?.name
         self.screennameLabel.text = "@\(User.currentUser!.screenname!)"
         
-        //        NotificationCenter.default.addObserverForName(UIKeyboardDidShowNotification, object: nil, queue: nil) { (notification: NSNotification!) -> Void in
-        //            let userInfo = notification.userInfo!
-        //            let keyboardFrameEnd = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
-        //            self.view.frame = CGRectMake(0, 0, keyboardFrameEnd.size.width, keyboardFrameEnd.origin.y)
-        //        }
-        //
-        //        NotificationCenter.default.addObserverForName(UIKeyboardDidHideNotification, object: nil, queue: nil) { (notification: NSNotification!) -> Void in
-        //            let userInfo = notification.userInfo!
-        //            let keyboardFrameEnd = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
-        //            self.view.frame = CGRectMake(0, 0, keyboardFrameEnd.size.width, keyboardFrameEnd.origin.y)
-        //        }
-        //
-        //        self.remainingCharactersLabel.text = "\(MAX_CHARACTERS_ALLOWED)"
-        //
-        //        self.textView.becomeFirstResponder()
-        
+        if replyTweet != nil {
+            tweetTextView.text = "@\(replyTweet!.user!.screenname!)"
+        }
+        tweetTextView.becomeFirstResponder()
     }
     
     func initializeUI() {
@@ -52,51 +46,51 @@ class ComposeTweetViewController: UIViewController {
         
         nameLabel.preferredMaxLayoutWidth = nameLabel.frame.size.width
         
-        // MDT need to set navigation bar color and font color here
+        navigationController?.navigationBar.barTintColor = UIColor(netHex: 0x00B8ED)
     }
     
     @IBAction func onCancelTap(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        if let navController = self.navigationController {
+            navController.popViewController(animated: true)
+        }
     }
     
     @IBAction func onTweetTap(_ sender: Any) {
-        // Make a call to twitter api
-        
         let tweetText = tweetTextView.text
-        // MDT change to a guard statement
         if (tweetText?.characters.count == 0) {
             return
         }
         
-        TwitterClient.sharedInstance.composeNewTweet(params: [ "status": tweetText! ], success: { (tweet: Tweet) in
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Tweet.ComponseNewTweet), object: tweet)
-            //            self.dismiss(animated: true, completion: nil)
+        var params: NSDictionary!
+        if let replyTweet = replyTweet {
+            params = ["status": tweetText!, "in_reply_to_status_id": replyTweet.id!]
+        } else {
+            params = ["status": tweetText!]
+        }
+        
+        TwitterClient.sharedInstance.composeNewTweet(params: params, success: { (tweet: Tweet) in
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Tweet.ComposeNewTweet), object: tweet)
         }, failure: { (error: Error) in
             NSLog("Error Composing new Tweet: \(error)")
         })
         
-        dismiss(animated: true, completion: nil)
+        if let navController = self.navigationController {
+            navController.popViewController(animated: true)
+        }
     }
-    
-    
-    
-    //    func adjustScrollViewContentSize() {
-    //        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: tweetTextView.frame.origin.y + tweetTextView.frame.size.height)
-    //    }
-    
-    //    override func viewDidLayoutSubviews() {
-    //        self.adjustScrollViewContentSize()
-    //    }
 }
 
-//extension ComposeTweetViewController: UITextViewDelegate {
-//
-//    func textViewDidChange(_ textView: UITextView) {
-//        //        let status = textView.text
-//        // MDT add later
-//        //        let charactersRemaining = Tweet.maxTweetCharacters - (status?.characters.count)!
-//        //        self.remainingCharactersLabel.text = "\(charactersRemaining)"
-//        //        self.remainingCharactersLabel.textColor = charactersRemaining >= 0 ? .lightGrayColor() : .redColor()
-////        adjustScrollViewContentSize()
-//    }
-//}
+extension UIColor {
+    // Taken from: http://bit.ly/2f6Fvz3
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(netHex:Int) {
+        self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
+    }
+}

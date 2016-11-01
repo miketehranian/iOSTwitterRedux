@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             window?.rootViewController = vc
         } else {
-            // MDT Remove this print and else statement when finished debugging
             print("There is no current user")
         }
         

@@ -16,24 +16,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        if User.currentUser != nil {
-            print("There is a current user")
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
-            
-            window?.rootViewController = vc
-        } else {
-            print("There is no current user")
-        }
+        let hamburgerViewController = window!.rootViewController as! HamburgerViewController
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil,
-                                               queue: OperationQueue.main,
-                                               using: { (notification: Notification) -> Void in
-                                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                                let vc = storyboard.instantiateInitialViewController()
-                                                self.window?.rootViewController = vc
-        })
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let menuViewController = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        
+        // The order of these two assignments matter to avoid Nil exceptions
+        menuViewController.hamburgerViewController = hamburgerViewController
+        hamburgerViewController.menuViewController = menuViewController
+        
+// TODO uncomment out
+//        if User.currentUser != nil {
+//            print("There is a current user")
+//            
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let vc = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+//            
+//            window?.rootViewController = vc
+//        } else {
+//            print("There is no current user")
+//        }
+//        
+//        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil,
+//                                               queue: OperationQueue.main,
+//                                               using: { (notification: Notification) -> Void in
+//                                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//                                                let vc = storyboard.instantiateInitialViewController()
+//                                                self.window?.rootViewController = vc
+//        })
         
         return true
     }

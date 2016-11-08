@@ -61,11 +61,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="FXr-pp-jp7">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="aEr-Pf-9f5">
-                            <connections>
-                                <action selector="onLogoutButton:" destination="JE7-7X-o4R" id="3z2-Fu-Ca3"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" image="Menu-44" id="JV5-Mk-78D"/>
                         <barButtonItem key="rightBarButtonItem" title="Compose" id="5be-bo-QeH">
                             <connections>
                                 <action selector="onComposeButton:" destination="JE7-7X-o4R" id="G5Q-mW-tdm"/>
@@ -364,7 +360,9 @@
                             <constraint firstItem="XiZ-8G-Q2M" firstAttribute="top" secondItem="9JN-vw-t0J" secondAttribute="top" id="hbG-Pf-NDD"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="h6a-YH-ZES"/>
+                    <navigationItem key="navigationItem" id="h6a-YH-ZES">
+                        <barButtonItem key="leftBarButtonItem" image="Menu-44" id="gYW-Qa-YJN"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="XiZ-8G-Q2M" id="qpE-pB-SIX"/>
                     </connections>
@@ -428,6 +426,7 @@
         <!--Menu View Controller-->
         <scene sceneID="M6F-Qg-djR">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lk1-7a-Sa3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="MenuViewController" id="uNB-Tw-ikD" customClass="MenuViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gKJ-BO-AKK"/>
@@ -450,17 +449,28 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2D-G5-eS7">
-                                                    <rect key="frame" x="8" y="22" width="59" height="29"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                    <nil key="textColor"/>
+                                                    <rect key="frame" x="70" y="21" width="62.5" height="29"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Twitter-50" translatesAutoresizingMaskIntoConstraints="NO" id="oiu-oA-SQM">
+                                                    <rect key="frame" x="8" y="15" width="48" height="48"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="48" id="NhX-zF-XNr"/>
+                                                        <constraint firstAttribute="height" constant="48" id="dIN-VU-5Gc"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="D2D-G5-eS7" firstAttribute="leading" secondItem="wRt-cX-aSN" secondAttribute="leading" constant="8" id="3MX-18-69o"/>
-                                                <constraint firstItem="D2D-G5-eS7" firstAttribute="top" secondItem="wRt-cX-aSN" secondAttribute="top" constant="22" id="mYB-1R-bL6"/>
+                                                <constraint firstItem="D2D-G5-eS7" firstAttribute="top" secondItem="wRt-cX-aSN" secondAttribute="top" constant="21" id="VoS-eW-foT"/>
+                                                <constraint firstAttribute="bottom" secondItem="oiu-oA-SQM" secondAttribute="bottom" constant="15" id="m3U-83-Ydb"/>
+                                                <constraint firstItem="oiu-oA-SQM" firstAttribute="top" secondItem="wRt-cX-aSN" secondAttribute="top" constant="15" id="mHy-uY-e57"/>
+                                                <constraint firstItem="oiu-oA-SQM" firstAttribute="leading" secondItem="wRt-cX-aSN" secondAttribute="leading" constant="8" id="ybS-hh-0Xx"/>
+                                                <constraint firstItem="D2D-G5-eS7" firstAttribute="leading" secondItem="oiu-oA-SQM" secondAttribute="trailing" constant="14" id="zzD-qJ-rBV"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="0.43695047357341465" blue="0.48319605036795588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="menuTitleLabel" destination="D2D-G5-eS7" id="TAs-2R-Hw0"/>
                                         </connections>
@@ -474,9 +484,8 @@
                         <outlet property="tableView" destination="fqR-eR-eCO" id="r4l-zS-f1b"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lk1-7a-Sa3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2028" y="1675"/>
+            <point key="canvasLocation" x="2028" y="1674.5127436281859"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tzi-V0-cQv">
@@ -539,7 +548,9 @@
                             <constraint firstItem="sQR-BE-Ngh" firstAttribute="top" secondItem="eXh-0i-ka1" secondAttribute="bottom" id="zb0-QX-thv"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="4fg-n8-7nM"/>
+                    <navigationItem key="navigationItem" id="4fg-n8-7nM">
+                        <barButtonItem key="leftBarButtonItem" image="Menu-44" id="0IR-c8-XoF"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="eXh-0i-ka1" id="dpo-fB-uXn"/>
                     </connections>
@@ -567,4 +578,8 @@
             <point key="canvasLocation" x="3053.5999999999999" y="2333.8830584707648"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Menu-44" width="22" height="22"/>
+        <image name="Twitter-50" width="25" height="25"/>
+    </resources>
 </document>

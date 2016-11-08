@@ -58,10 +58,6 @@ class TweetsViewController: UIViewController {
         tableView.insertSubview(refreshControl, at: 0)
     }
     
-    @IBAction func onLogoutButton(_ sender: Any) {
-        TwitterClient.sharedInstance.logout()
-    }
-    
     @IBAction func onComposeButton(_ sender: Any) {
         composeTweetFor(tweet: nil)
     }

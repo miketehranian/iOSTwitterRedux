@@ -25,7 +25,7 @@ class MenuViewController: UIViewController {
     var mentionsViewController: UIViewController!
     var timelineViewController: UIViewController!
     
-    let menuItems = ["Home", "Mentions",  "Profile"]
+    let menuItems = ["Home", "Mentions",  "Profile", "Logout"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +98,9 @@ extension MenuViewController: UITableViewDelegate {
         } else if indexPath.row == 2 {
             // Profile
             navigateToProfileView(user: User.currentUser)
+        } else if indexPath.row == 3 {
+            // Logout
+            TwitterClient.sharedInstance.logout()
         }
     }
 }
@@ -119,7 +122,7 @@ extension MenuViewController: MenuViewNavigator {
 
 func styleNavigationBar(viewController: UIViewController) {
     // Twitter Blue background with white text
-
+    
     viewController.navigationController?.navigationBar.barTintColor = UIColor(netHex: 0x00B8ED)
     viewController.navigationController?.navigationBar.tintColor = UIColor.white
     viewController.navigationController?.navigationBar.isTranslucent = false

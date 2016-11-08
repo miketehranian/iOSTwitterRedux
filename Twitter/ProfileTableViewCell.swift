@@ -19,6 +19,8 @@ class ProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var followingLabel: UILabel!
     @IBOutlet weak var followersLabel: UILabel!
     
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
     var user: User! {
         didSet {
             if user.bannerUrl != nil {
@@ -32,6 +34,7 @@ class ProfileTableViewCell: UITableViewCell {
             screennameLabel.text = "@\(user.screenname!)"
             followingLabel.text = "\(user.numFollowing!)"
             followersLabel.text = "\(user.numFollowers!)"
+            descriptionLabel.text = "\(user.descriptionText!)"
         }
     }
     

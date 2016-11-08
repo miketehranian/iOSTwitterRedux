@@ -20,6 +20,7 @@ class ProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var followersLabel: UILabel!
     
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var numTweets: UILabel!
     
     var user: User! {
         didSet {
@@ -36,6 +37,7 @@ class ProfileTableViewCell: UITableViewCell {
             followingLabel.text = "\(user.numFollowing!)"
             followersLabel.text = "\(user.numFollowers!)"
             descriptionLabel.text = "\(user.descriptionText!)"
+            numTweets.text = "\(user.numTweets!)"
         }
     }
     

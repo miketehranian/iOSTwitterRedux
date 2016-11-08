@@ -17,8 +17,6 @@ class HamburgerViewController: UIViewController {
     var originalLeftMargin: CGFloat!
     
     var menuViewController: UIViewController! {
-        // see 25:00 in video but may need to do same logic for contentView controller lifecycle stuff here too
-        // This is only called once though in the app delegate when wiring the view controllers
         didSet {
             // Hack that forces call to viewDidLoad()
             view.layoutIfNeeded()
@@ -37,7 +35,7 @@ class HamburgerViewController: UIViewController {
                 oldContentViewController.view.removeFromSuperview()
                 oldContentViewController.didMove(toParentViewController: nil)
             }
-
+            
             // Will call willAppear()
             contentViewController.willMove(toParentViewController: self)
             
@@ -45,15 +43,9 @@ class HamburgerViewController: UIViewController {
             // so bypassing view lifecyle methods
             contentView.addSubview(contentViewController.view)
             
-            // MDT add this call below?
-            // contentViewController.viewDidLoad()
-            
             // Will call didAppear()
             contentViewController.didMove(toParentViewController: self)
 
-            // MDT add this call below?
-            // view.layoutIfNeeded() // call viewDidLoad before hitting the next line.
-            
             UIView.animate(withDuration: 0.3, animations: {
                 self.leftMarginConstraint.constant = 0
                 self.view.layoutIfNeeded()

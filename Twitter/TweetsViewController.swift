@@ -16,8 +16,7 @@ class TweetsViewController: UIViewController {
     
     var refreshControl: UIRefreshControl!
     
-    //MDT do I really need this?
-    weak var navigator: MenuViewNavigator?
+    weak var navigator: HamburgerNavigator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,10 +81,10 @@ extension TweetsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetTableViewCell", for: indexPath) as! TweetTableViewCell
+        
         cell.tweet = tweets[indexPath.row]
         cell.showProfileDelegate = self
-        // MDT commented out below because tweet cell has no compose functionality
-        //        cell.composer = self
+        
         return cell
     }
 }
@@ -111,13 +110,12 @@ extension TweetsViewController: ComposeTweetDelegate {
             controller.replyTweet = nil
         }
         
-        // MDT may need to wrap compose (and maybe all MVCs) in Nav controllers for this to work
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 
 extension TweetsViewController: ShowProfileDelegate {
     func showProfile(forUser: User?) {
-        navigator?.navigateToProfileView(user: forUser)
+        navigator?.showProfileView(user: forUser)
     }
 }

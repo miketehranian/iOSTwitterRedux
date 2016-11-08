@@ -8,14 +8,13 @@
 
 import UIKit
 
-// MDT Rename to hamburger navigator
-protocol MenuViewNavigator: class {
-    func navigateToProfileView(user: User?)
+protocol HamburgerNavigator: class {
+    func showProfileView(user: User?)
 }
 
 class MenuViewController: UIViewController {
     
-    var viewControllers: [UIViewController] = []
+    var viewControllers = [UIViewController]()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -23,7 +22,7 @@ class MenuViewController: UIViewController {
     
     var profileViewController: UIViewController!
     var mentionsViewController: UIViewController!
-    var timelineViewController: UIViewController!
+    var tweetsViewController: UIViewController!
     
     let menuItems = ["Home", "Mentions",  "Profile", "Logout"]
     
@@ -34,30 +33,25 @@ class MenuViewController: UIViewController {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        timelineViewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+        tweetsViewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
         mentionsViewController = storyboard.instantiateViewController(withIdentifier: "MentionsNavigationController")
         profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationController")
         
-        // MDT replace this with a for-loop
-        if let tvc = timelineViewController.childViewControllers[0] as? TweetsViewController {
-            tvc.navigator = self
+        if let tweetsVC = tweetsViewController.childViewControllers[0] as? TweetsViewController {
+            tweetsVC.navigator = self
         }
-        if let mvc = mentionsViewController.childViewControllers[0] as? MentionsViewController {
-            mvc.navigator = self
+        if let mentionsVC = mentionsViewController.childViewControllers[0] as? MentionsViewController {
+            mentionsVC.navigator = self
         }
-        if let pvc = profileViewController.childViewControllers[0] as? ProfileViewController {
-            pvc.navigator = self
+        if let profileVC = profileViewController.childViewControllers[0] as? ProfileViewController {
+            profileVC.navigator = self
         }
         
         viewControllers.append(profileViewController)
         viewControllers.append(mentionsViewController)
-        viewControllers.append(timelineViewController)
+        viewControllers.append(tweetsViewController)
         
-        showTweetsView(user: User.currentUser)
-    }
-    
-    func showTweetsView(user: User?) {
-        hamburgerViewController.contentViewController = timelineViewController
+        hamburgerViewController.contentViewController = tweetsViewController
     }
     
     func showMentionsView(user: User?) {
@@ -91,13 +85,13 @@ extension MenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             // Tweets
-            showTweetsView(user: User.currentUser)
+            hamburgerViewController.contentViewController = tweetsViewController
         } else if indexPath.row == 1 {
             // Mentions
             showMentionsView(user: User.currentUser)
         } else if indexPath.row == 2 {
             // Profile
-            navigateToProfileView(user: User.currentUser)
+            showProfileView(user: User.currentUser)
         } else if indexPath.row == 3 {
             // Logout
             TwitterClient.sharedInstance.logout()
@@ -105,17 +99,17 @@ extension MenuViewController: UITableViewDelegate {
     }
 }
 
-extension MenuViewController: MenuViewNavigator {
+extension MenuViewController: HamburgerNavigator {
     
-    func navigateToProfileView(user: User?) {
-        if let pvc = profileViewController.childViewControllers[0] as? ProfileViewController {
-            pvc.user = user
-            pvc.title = user?.name!
+    func showProfileView(user: User?) {
+        if let profileView = profileViewController.childViewControllers[0] as? ProfileViewController {
+            profileView.user = user
+            profileView.title = user?.name!
             
-            styleNavigationBar(viewController: pvc)
+            styleNavigationBar(viewController: profileView)
             
             hamburgerViewController.contentViewController = profileViewController
-            pvc.refreshView()
+            profileView.refreshView()
         }
     }
 }

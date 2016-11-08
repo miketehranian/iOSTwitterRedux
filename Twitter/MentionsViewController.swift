@@ -10,8 +10,8 @@ import UIKit
 
 class MentionsViewController: UIViewController, UITableViewDelegate {
     
-    var tweets: [Tweet] = []
-    weak var navigator: MenuViewNavigator?
+    var tweets = [Tweet]()
+    weak var navigator: HamburgerNavigator?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -21,7 +21,7 @@ class MentionsViewController: UIViewController, UITableViewDelegate {
         tableView.delegate = self
         let tweetNib = UINib(nibName: "TweetTableViewCell", bundle: nil)
         tableView.register(tweetNib, forCellReuseIdentifier: "TweetTableViewCell")
-        tableView.estimatedRowHeight = 88
+        tableView.estimatedRowHeight = 124
         tableView.rowHeight = UITableViewAutomaticDimension
         
         navigationItem.title = "Mentions"
@@ -31,7 +31,7 @@ class MentionsViewController: UIViewController, UITableViewDelegate {
         
         let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : Any]
-
+        
         
         initializeTweetMentions()
     }
@@ -57,7 +57,7 @@ extension MentionsViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetTableViewCell", for: indexPath) as! TweetTableViewCell
         cell.showProfileDelegate = self
-        // MDT may want to add functionality to compose with show detail here too
+        
         cell.tweet = tweets[indexPath.row]
         
         return cell
@@ -66,6 +66,6 @@ extension MentionsViewController: UITableViewDataSource {
 
 extension MentionsViewController: ShowProfileDelegate {
     func showProfile(forUser: User?) {
-        navigator?.navigateToProfileView(user: forUser)
+        navigator?.showProfileView(user: forUser)
     }
 }

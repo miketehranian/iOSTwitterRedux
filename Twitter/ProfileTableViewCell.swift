@@ -23,14 +23,15 @@ class ProfileTableViewCell: UITableViewCell {
     
     var user: User! {
         didSet {
-            if user.bannerUrl != nil {
-                backgroundImageView.setImageWith(user.bannerUrl!)
+            if let bannerImageUrl = user.bannerUrl {
+                backgroundImageView.setImageWith(bannerImageUrl)
             } else {
                 backgroundImageView.image = nil
             }
             
             profileImageView.setImageWith(user.profileUrl!)
             nameLabel.text = user.name
+            
             screennameLabel.text = "@\(user.screenname!)"
             followingLabel.text = "\(user.numFollowing!)"
             followersLabel.text = "\(user.numFollowers!)"
@@ -40,13 +41,14 @@ class ProfileTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        profileImageView.layer.borderWidth = 4
+        
+        profileImageView.layer.borderWidth = 3
         profileImageView.layer.borderColor = UIColor.white.cgColor
-        profileImageView.layer.cornerRadius = 4
+        profileImageView.layer.cornerRadius = 3
         profileImageView.clipsToBounds = true
         backgroundImageView.clipsToBounds = true
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }

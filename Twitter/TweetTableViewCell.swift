@@ -40,15 +40,14 @@ class TweetTableViewCell: UITableViewCell {
         profileImageView.layer.cornerRadius = 3
         profileImageView.clipsToBounds = true
         
-        // MDT Do I need line below?
         nameLabel.preferredMaxLayoutWidth = nameLabel.frame.size.width
         
-        let profileImageTap = UITapGestureRecognizer(target: self, action: #selector(self.onProfileImageTapGesture(_:)))
+        let profileImageTapGR = UITapGestureRecognizer(target: self, action: #selector(self.onTapProfileImage(_:)))
         profileImageView.isUserInteractionEnabled = true
-        profileImageView.addGestureRecognizer(profileImageTap)
+        profileImageView.addGestureRecognizer(profileImageTapGR)
     }
     
-    func onProfileImageTapGesture(_ sender: UITapGestureRecognizer) {
+    func onTapProfileImage(_ sender: UITapGestureRecognizer) {
         showProfileDelegate?.showProfile(forUser: tweet.user)
     }
     

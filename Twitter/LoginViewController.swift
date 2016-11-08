@@ -16,11 +16,9 @@ class LoginViewController: UIViewController {
             success: {
                 print("I've logged in!")
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.userDidLoginNotification), object: nil)
-                //                self.performSegue(withIdentifier: "loginSegue", sender: nil)
         }, failure: { (error: Error) in
             print("Error: \(error.localizedDescription)")
         })
-        
     }
     
     override func viewDidLoad() {

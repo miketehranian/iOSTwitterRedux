@@ -35,18 +35,18 @@ class User: NSObject {
             profileUrl = URL(string: profileUrlString)!
         }
         
-        // MDT need to put this text into the ProfileTableViewCell
         descriptionText = dictionary["description"] as? String
         
         numTweets = dictionary["statuses_count"] as? Int ?? 0
         numFollowing = dictionary["friends_count"] as? Int ?? 0
-        numFollowers = dictionary["followers_count"] as? Int ?? 0 // works
+        numFollowers = dictionary["followers_count"] as? Int ?? 0
         
         let backgroundUrlString = dictionary["profile_background_image_url_https"] as? String
         if let backgroundImageUrlString = backgroundUrlString {
             bannerUrl = URL(string: backgroundImageUrlString)
         }
         
+        // Twitter API is weird, sometimes this is populated ¯\_(ツ)_/¯
         let bannerUrlString = dictionary["profile_banner_url_https"] as? String
         if let bannerImageUrlString = bannerUrlString {
             bannerUrl = URL(string: bannerImageUrlString)

@@ -10,30 +10,22 @@ import UIKit
 
 class ProfileViewController: UIViewController, UITableViewDelegate {
     
-    
     @IBOutlet weak var tableView: UITableView!
     var tweets: [Tweet] = []
     var user: User?
-    weak var navigator: MenuViewNavigator?
-    //    var profileCell: ProfileTableViewCell?
+    weak var navigator: HamburgerNavigator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
         
-        // MDT update names here
-        let tweetNib = UINib(nibName: "TweetTableViewCell", bundle: nil)
-        let profileNib = UINib(nibName: "ProfileTableViewCell", bundle: nil)
-        tableView.register(tweetNib, forCellReuseIdentifier: "TweetTableViewCell")
-        tableView.register(profileNib, forCellReuseIdentifier: "ProfileTableViewCell")
-        tableView.estimatedRowHeight = 88
+        let tweetTableCellXib = UINib(nibName: "TweetTableViewCell", bundle: nil)
+        let profileTableCellXib = UINib(nibName: "ProfileTableViewCell", bundle: nil)
+        tableView.register(tweetTableCellXib, forCellReuseIdentifier: "TweetTableViewCell")
+        tableView.register(profileTableCellXib, forCellReuseIdentifier: "ProfileTableViewCell")
+        tableView.estimatedRowHeight = 124
         tableView.rowHeight = UITableViewAutomaticDimension
-        
-        
-        
-        
-        
     }
     
     func refreshView() {
@@ -53,6 +45,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate {
 extension ProfileViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Add one for the profile photo and details cell
         return tweets.count + 1
     }
     
@@ -60,7 +53,6 @@ extension ProfileViewController: UITableViewDataSource {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileTableViewCell", for: indexPath) as! ProfileTableViewCell
             cell.selectionStyle = .none
-            //            self.profileCell = cell
             cell.user = user
             return cell
         } else {
@@ -74,10 +66,6 @@ extension ProfileViewController: UITableViewDataSource {
 
 extension ProfileViewController: ShowProfileDelegate {
     func showProfile(forUser: User?) {
-        navigator?.navigateToProfileView(user: forUser)
+        navigator?.showProfileView(user: forUser)
     }
 }
-
-
-// MDT Maybe add a compose Nav button and extension handler here
-

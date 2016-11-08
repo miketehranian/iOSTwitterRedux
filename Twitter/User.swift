@@ -13,11 +13,17 @@ class User: NSObject {
     var name: String?
     var screenname: String?
     var profileUrl: URL?
-    var tagline: String?
+    var descriptionText: String?
+    
+    var bannerUrl: URL?
+    var numFollowing: Int?
+    var numFollowers: Int?
+    var numTweets: Int?
     
     var dictionary: NSDictionary?
     
     public static let userDidLogoutNotification = "UserDidLogout"
+    public static let userDidLoginNotification = "UserDidLogin"
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
@@ -29,7 +35,22 @@ class User: NSObject {
             profileUrl = URL(string: profileUrlString)!
         }
         
-        tagline = dictionary["description"] as? String
+        // MDT need to put this text into the ProfileTableViewCell
+        descriptionText = dictionary["description"] as? String
+        
+        numTweets = dictionary["statuses_count"] as? Int ?? 0
+        numFollowing = dictionary["friends_count"] as? Int ?? 0
+        numFollowers = dictionary["followers_count"] as? Int ?? 0 // works
+        
+        let backgroundUrlString = dictionary["profile_background_image_url_https"] as? String
+        if let backgroundImageUrlString = backgroundUrlString {
+            bannerUrl = URL(string: backgroundImageUrlString)
+        }
+        
+        let bannerUrlString = dictionary["profile_banner_url_https"] as? String
+        if let bannerImageUrlString = bannerUrlString {
+            bannerUrl = URL(string: bannerImageUrlString)
+        }
     }
     
     private static var _currentUser: User?

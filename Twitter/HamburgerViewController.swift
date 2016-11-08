@@ -12,7 +12,6 @@ class HamburgerViewController: UIViewController {
     
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var contentView: UIView!
-    
     @IBOutlet weak var leftMarginConstraint: NSLayoutConstraint!
     
     var originalLeftMargin: CGFloat!
@@ -23,8 +22,9 @@ class HamburgerViewController: UIViewController {
         didSet {
             // Hack that forces call to viewDidLoad()
             view.layoutIfNeeded()
-            
+            menuViewController.willMove(toParentViewController: self)
             menuView.addSubview(menuViewController.view)
+            menuViewController.didMove(toParentViewController: self)
         }
     }
     
@@ -45,8 +45,14 @@ class HamburgerViewController: UIViewController {
             // so bypassing view lifecyle methods
             contentView.addSubview(contentViewController.view)
             
+            // MDT add this call below?
+            // contentViewController.viewDidLoad()
+            
             // Will call didAppear()
             contentViewController.didMove(toParentViewController: self)
+
+            // MDT add this call below?
+            // view.layoutIfNeeded() // call viewDidLoad before hitting the next line.
             
             UIView.animate(withDuration: 0.3, animations: {
                 self.leftMarginConstraint.constant = 0

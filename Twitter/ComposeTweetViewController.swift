@@ -14,7 +14,6 @@ protocol ComposeTweetDelegate: class {
 
 class ComposeTweetViewController: UIViewController {
     
-    
     @IBOutlet weak var tweetTextView: UITextView!
     
     @IBOutlet weak var profileImageView: UIImageView!

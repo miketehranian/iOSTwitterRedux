@@ -67,6 +67,21 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    func userTimeline(screenname: String, params: NSDictionary = [:], success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+        let url = "1.1/statuses/user_timeline.json?screen_name=\(screenname)"
+        get(url, parameters: params, progress: nil, success: {
+            (task: URLSessionDataTask, response: Any?) -> Void in
+            
+            let dictionaries = response as! [NSDictionary]
+            let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
+            
+            success(tweets)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("Error:\(error.localizedDescription)")
+            failure(error)
+        })
+    }
+    
     func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             
@@ -90,6 +105,19 @@ class TwitterClient: BDBOAuth1SessionManager {
             failure(error)
         })
     }
+    
+    func userMentions(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+        get("1.1/statuses/mentions_timeline.json", parameters: [:], progress: nil, success: {
+            (task: URLSessionDataTask, response: Any?) -> Void in
+            let dictionaries = response as! [NSDictionary]
+            let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
+            success(tweets)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("Error:\(error.localizedDescription)")
+            failure(error)
+        })
+    }
+    
     
     func retweet(unRetweet: Bool = false, params: NSDictionary, success: @escaping (NSDictionary) -> (), failure: @escaping (Error) -> ()) {
         let url = (unRetweet ? "1.1/statuses/unretweet/" : "1.1/statuses/retweet/")+"\(params["id"]!).json"

@@ -8,13 +8,16 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDelegate {
+class TweetsViewController: UIViewController {
     
     var tweets: [Tweet]!
     
     @IBOutlet weak var tableView: UITableView!
     
     var refreshControl: UIRefreshControl!
+    
+    //MDT do I really need this?
+    weak var navigator: MenuViewNavigator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +30,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate {
                                                 self.tableView.reloadData()
         })
         
-        
         initializeUI()
         loadTweetTimeline()
     }
@@ -39,6 +41,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate {
         // Used for estimating scroll bar height
         tableView.estimatedRowHeight = 120
         
+        let tweetNib = UINib(nibName: "TweetTableViewCell", bundle: nil)
+        tableView.register(tweetNib, forCellReuseIdentifier: "TweetTableViewCell")
+        
+        navigationItem.title = "Timeline"
         navigationController?.navigationBar.barTintColor = UIColor(netHex: 0x00B8ED)
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.isTranslucent = false
@@ -79,20 +85,24 @@ extension TweetsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TweetTableViewCell", for: indexPath) as! TweetTableViewCell
         cell.tweet = tweets[indexPath.row]
-        cell.composer = self
+        cell.showProfileDelegate = self
+        // MDT commented out below because tweet cell has no compose functionality
+        //        cell.composer = self
         return cell
     }
+}
+
+extension TweetsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "TweetDetailViewController") as! TweetDetailViewController
         controller.tweet = tweets[indexPath.row]
-        controller.composer = self
+        controller.composeTweetDelegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
-    
 }
 
 extension TweetsViewController: ComposeTweetDelegate {
@@ -105,7 +115,13 @@ extension TweetsViewController: ComposeTweetDelegate {
             controller.replyTweet = nil
         }
         
+        // MDT may need to wrap compose (and maybe all MVCs) in Nav controllers for this to work
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 
+extension TweetsViewController: ShowProfileDelegate {
+    func showProfile(forUser: User?) {
+        navigator?.navigateToProfileView(user: forUser)
+    }
+}

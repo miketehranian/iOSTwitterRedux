@@ -1,22 +1,26 @@
 //
-//  TweetsCell.swift
+//  TweetTableViewCell.swift
 //  Twitter
 //
-//  Created by Mike Tehranian on 10/29/16.
+//  Created by Mike Tehranian on 11/7/16.
 //  Copyright © 2016 Mike Tehranian. All rights reserved.
 //
 
 import UIKit
 
-class TweetsCell: UITableViewCell {
+protocol ShowProfileDelegate: class {
+    func showProfile(forUser: User?)
+}
+
+class TweetTableViewCell: UITableViewCell {
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screennameLabel: UILabel!
-    @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var tweetTextLabel: UILabel!
     
-    weak var composer: ComposeTweetDelegate?
+    weak var showProfileDelegate: ShowProfileDelegate?
     
     var tweet: Tweet! {
         didSet {
@@ -36,7 +40,16 @@ class TweetsCell: UITableViewCell {
         profileImageView.layer.cornerRadius = 3
         profileImageView.clipsToBounds = true
         
+        // MDT Do I need line below?
         nameLabel.preferredMaxLayoutWidth = nameLabel.frame.size.width
+        
+        let profileImageTap = UITapGestureRecognizer(target: self, action: #selector(self.onProfileImageTapGesture(_:)))
+        profileImageView.isUserInteractionEnabled = true
+        profileImageView.addGestureRecognizer(profileImageTap)
+    }
+    
+    func onProfileImageTapGesture(_ sender: UITapGestureRecognizer) {
+        showProfileDelegate?.showProfile(forUser: tweet.user)
     }
     
     override func layoutSubviews() {

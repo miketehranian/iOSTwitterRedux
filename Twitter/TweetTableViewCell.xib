@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="TweetTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetTableViewCell" rowHeight="124" id="KGk-i7-Jjw" customClass="TweetTableViewCell" customModule="Twitter" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="548" height="124"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="548" height="123"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kTs-Jo-E06">
+                        <rect key="frame" x="8" y="8" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="iop-zd-MaA"/>
+                            <constraint firstAttribute="height" constant="50" id="ycW-nv-EwS"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vch-Np-iid">
+                        <rect key="frame" x="66" y="8" width="42.5" height="18"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Screenname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mK-vS-Puf">
+                        <rect key="frame" x="116.5" y="10" width="71" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timestamp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GG4-hW-Inf">
+                        <rect key="frame" x="483" y="10.5" width="63" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tweet Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jod-XT-dpC">
+                        <rect key="frame" x="66" y="34" width="474" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jod-XT-dpC" firstAttribute="leading" secondItem="vch-Np-iid" secondAttribute="leading" id="6ca-1B-CgJ"/>
+                    <constraint firstItem="8mK-vS-Puf" firstAttribute="baseline" secondItem="vch-Np-iid" secondAttribute="baseline" id="7pn-L2-Oee"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="jod-XT-dpC" secondAttribute="bottom" constant="8" id="KsB-W4-ZtG"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kTs-Jo-E06" secondAttribute="bottom" constant="8" id="N90-Wc-F2G"/>
+                    <constraint firstItem="GG4-hW-Inf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8mK-vS-Puf" secondAttribute="trailing" constant="8" id="Ou1-YV-3ky"/>
+                    <constraint firstItem="8mK-vS-Puf" firstAttribute="leading" secondItem="vch-Np-iid" secondAttribute="trailing" constant="8" id="SOC-Qa-GNh"/>
+                    <constraint firstAttribute="trailing" secondItem="GG4-hW-Inf" secondAttribute="trailing" constant="2" id="jlk-GE-ObT"/>
+                    <constraint firstAttribute="trailing" secondItem="jod-XT-dpC" secondAttribute="trailing" constant="8" id="nPj-i5-65k"/>
+                    <constraint firstItem="vch-Np-iid" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="pKN-kK-9G5"/>
+                    <constraint firstItem="GG4-hW-Inf" firstAttribute="baseline" secondItem="vch-Np-iid" secondAttribute="baseline" id="sa0-ec-K1C"/>
+                    <constraint firstItem="kTs-Jo-E06" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="vBz-20-Sjt"/>
+                    <constraint firstItem="kTs-Jo-E06" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="w2r-C2-YNh"/>
+                    <constraint firstItem="vch-Np-iid" firstAttribute="leading" secondItem="kTs-Jo-E06" secondAttribute="trailing" constant="8" id="wi9-Ca-f9U"/>
+                    <constraint firstItem="jod-XT-dpC" firstAttribute="top" secondItem="vch-Np-iid" secondAttribute="bottom" constant="8" id="yAl-gY-fMf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="nameLabel" destination="vch-Np-iid" id="5di-yC-52f"/>
+                <outlet property="profileImageView" destination="kTs-Jo-E06" id="IzR-ES-cnP"/>
+                <outlet property="screennameLabel" destination="8mK-vS-Puf" id="5vB-a3-Iz9"/>
+                <outlet property="timestampLabel" destination="GG4-hW-Inf" id="hK0-Tx-D1R"/>
+                <outlet property="tweetTextLabel" destination="jod-XT-dpC" id="15g-ZR-XOj"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

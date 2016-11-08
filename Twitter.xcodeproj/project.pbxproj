@@ -17,15 +17,17 @@
 		4E477E431DC43DC100CB72B6 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E477E421DC43DC100CB72B6 /* Tweet.swift */; };
 		4E477E451DC44EA100CB72B6 /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E477E441DC44EA100CB72B6 /* TwitterClient.swift */; };
 		4E477E491DC464F000CB72B6 /* TweetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E477E481DC464F000CB72B6 /* TweetsViewController.swift */; };
-		4E477E4F1DC5963C00CB72B6 /* TweetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E477E4E1DC5963C00CB72B6 /* TweetsCell.swift */; };
 		4E477E511DC5E33000CB72B6 /* ComposeTweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E477E501DC5E33000CB72B6 /* ComposeTweetViewController.swift */; };
 		4E477E551DC71EB200CB72B6 /* TweetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E477E541DC71EB200CB72B6 /* TweetDetailViewController.swift */; };
 		4EE7457D1DCEA7F0009AE269 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7457C1DCEA7F0009AE269 /* MenuViewController.swift */; };
-		4EE7457F1DCEA846009AE269 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7457E1DCEA846009AE269 /* GreenViewController.swift */; };
-		4EE745811DCEA84E009AE269 /* BlueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE745801DCEA84E009AE269 /* BlueViewController.swift */; };
-		4EE745831DCEA857009AE269 /* PinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE745821DCEA857009AE269 /* PinkViewController.swift */; };
 		4EE745851DCEB053009AE269 /* HamburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE745841DCEB053009AE269 /* HamburgerViewController.swift */; };
 		4EE745871DCEB0CC009AE269 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE745861DCEB0CC009AE269 /* MenuCell.swift */; };
+		4EE7458B1DD11AE6009AE269 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7458A1DD11AE6009AE269 /* ProfileViewController.swift */; };
+		4EE7458E1DD11BF8009AE269 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7458C1DD11BF8009AE269 /* ProfileTableViewCell.swift */; };
+		4EE7458F1DD11BF8009AE269 /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EE7458D1DD11BF8009AE269 /* ProfileTableViewCell.xib */; };
+		4EE745921DD12ECE009AE269 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE745901DD12ECE009AE269 /* TweetTableViewCell.swift */; };
+		4EE745931DD12ECE009AE269 /* TweetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EE745911DD12ECE009AE269 /* TweetTableViewCell.xib */; };
+		4EE745951DD1441E009AE269 /* MentionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE745941DD1441E009AE269 /* MentionsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,15 +45,17 @@
 		4E477E441DC44EA100CB72B6 /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		4E477E481DC464F000CB72B6 /* TweetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsViewController.swift; sourceTree = "<group>"; };
 		4E477E4A1DC592DC00CB72B6 /* Twitter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Twitter.entitlements; sourceTree = "<group>"; };
-		4E477E4E1DC5963C00CB72B6 /* TweetsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsCell.swift; sourceTree = "<group>"; };
 		4E477E501DC5E33000CB72B6 /* ComposeTweetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeTweetViewController.swift; sourceTree = "<group>"; };
 		4E477E541DC71EB200CB72B6 /* TweetDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetDetailViewController.swift; sourceTree = "<group>"; };
 		4EE7457C1DCEA7F0009AE269 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		4EE7457E1DCEA846009AE269 /* GreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
-		4EE745801DCEA84E009AE269 /* BlueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueViewController.swift; sourceTree = "<group>"; };
-		4EE745821DCEA857009AE269 /* PinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinkViewController.swift; sourceTree = "<group>"; };
 		4EE745841DCEB053009AE269 /* HamburgerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HamburgerViewController.swift; sourceTree = "<group>"; };
 		4EE745861DCEB0CC009AE269 /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		4EE7458A1DD11AE6009AE269 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		4EE7458C1DD11BF8009AE269 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		4EE7458D1DD11BF8009AE269 /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
+		4EE745901DD12ECE009AE269 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
+		4EE745911DD12ECE009AE269 /* TweetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetTableViewCell.xib; sourceTree = "<group>"; };
+		4EE745941DD1441E009AE269 /* MentionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsViewController.swift; sourceTree = "<group>"; };
 		D380DF47459CA3D32AC4F6EE /* Pods-Twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +123,8 @@
 				4E477E481DC464F000CB72B6 /* TweetsViewController.swift */,
 				4E477E501DC5E33000CB72B6 /* ComposeTweetViewController.swift */,
 				4E477E541DC71EB200CB72B6 /* TweetDetailViewController.swift */,
+				4EE7458A1DD11AE6009AE269 /* ProfileViewController.swift */,
+				4EE745941DD1441E009AE269 /* MentionsViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -134,7 +140,10 @@
 		4E477E4B1DC5960A00CB72B6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4E477E4E1DC5963C00CB72B6 /* TweetsCell.swift */,
+				4EE7458C1DD11BF8009AE269 /* ProfileTableViewCell.swift */,
+				4EE7458D1DD11BF8009AE269 /* ProfileTableViewCell.xib */,
+				4EE745901DD12ECE009AE269 /* TweetTableViewCell.swift */,
+				4EE745911DD12ECE009AE269 /* TweetTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -144,9 +153,6 @@
 			children = (
 				4EE745841DCEB053009AE269 /* HamburgerViewController.swift */,
 				4EE7457C1DCEA7F0009AE269 /* MenuViewController.swift */,
-				4EE7457E1DCEA846009AE269 /* GreenViewController.swift */,
-				4EE745801DCEA84E009AE269 /* BlueViewController.swift */,
-				4EE745821DCEA857009AE269 /* PinkViewController.swift */,
 				4EE745861DCEB0CC009AE269 /* MenuCell.swift */,
 			);
 			name = Hamburger;
@@ -237,7 +243,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EE745931DD12ECE009AE269 /* TweetTableViewCell.xib in Resources */,
 				4E477E341DC3FBFD00CB72B6 /* LaunchScreen.storyboard in Resources */,
+				4EE7458F1DD11BF8009AE269 /* ProfileTableViewCell.xib in Resources */,
 				4E477E311DC3FBFD00CB72B6 /* Assets.xcassets in Resources */,
 				4E477E2F1DC3FBFD00CB72B6 /* Main.storyboard in Resources */,
 			);
@@ -299,20 +307,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E477E451DC44EA100CB72B6 /* TwitterClient.swift in Sources */,
+				4EE7458E1DD11BF8009AE269 /* ProfileTableViewCell.swift in Sources */,
 				4EE7457D1DCEA7F0009AE269 /* MenuViewController.swift in Sources */,
-				4EE7457F1DCEA846009AE269 /* GreenViewController.swift in Sources */,
-				4E477E4F1DC5963C00CB72B6 /* TweetsCell.swift in Sources */,
 				4E477E551DC71EB200CB72B6 /* TweetDetailViewController.swift in Sources */,
-				4EE745831DCEA857009AE269 /* PinkViewController.swift in Sources */,
 				4EE745851DCEB053009AE269 /* HamburgerViewController.swift in Sources */,
 				4E477E511DC5E33000CB72B6 /* ComposeTweetViewController.swift in Sources */,
 				4E477E3C1DC4020800CB72B6 /* LoginViewController.swift in Sources */,
 				4E477E491DC464F000CB72B6 /* TweetsViewController.swift in Sources */,
+				4EE745951DD1441E009AE269 /* MentionsViewController.swift in Sources */,
 				4E477E2A1DC3FBFD00CB72B6 /* AppDelegate.swift in Sources */,
 				4EE745871DCEB0CC009AE269 /* MenuCell.swift in Sources */,
+				4EE7458B1DD11AE6009AE269 /* ProfileViewController.swift in Sources */,
 				4E477E411DC43DB300CB72B6 /* User.swift in Sources */,
-				4EE745811DCEA84E009AE269 /* BlueViewController.swift in Sources */,
 				4E477E431DC43DC100CB72B6 /* Tweet.swift in Sources */,
+				4EE745921DD12ECE009AE269 /* TweetTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

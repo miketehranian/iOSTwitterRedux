@@ -12,7 +12,7 @@ class TweetDetailViewController: UIViewController {
     
     var tweet: Tweet?
     
-    weak var composer: ComposeTweetDelegate?
+    weak var composeTweetDelegate: ComposeTweetDelegate?
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -48,7 +48,7 @@ class TweetDetailViewController: UIViewController {
     }
     
     @IBAction func onReplyTap(_ sender: Any) {
-        composer?.composeTweetFor(tweet: tweet!)
+        composeTweetDelegate?.composeTweetFor(tweet: tweet!)
     }
     
     func updateFavoriteCount(increment: Bool) {

@@ -47,7 +47,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Describe any challenges encountered while building the app.
 
-The biggest challenge was learning and playing around with different view controller structures in the storyboard for connecting and re-using them. I tried a few different approaches but eventually settled on creating my segues programmatically and without using IB.
+The biggest challenge was learning and trying different view controller structures in the storyboard. My goal was to enable reuse of the view controllers and table cells so I ended up using table cell XIBs. I tried a few different approaches with the VCs but eventually settled on creating my segues programmatically and without using IB as I found this to be the most flexible.
 
 
 ## License
